@@ -32,6 +32,7 @@ body {
 
 .wrapper a:hover {
   text-decoration: none;
+  cursor: pointer;
 }
 
 .wrapper :focus {

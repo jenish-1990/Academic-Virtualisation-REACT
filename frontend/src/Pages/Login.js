@@ -18,6 +18,10 @@ const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
+  const goToRegister = () => {
+    history.push("/register");
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -92,7 +96,7 @@ const Login = () => {
               </a>
             </div>
             <div className="w-full text-center" style={{ marginTop: "17%" }}>
-              <a className="text-dark" href="/register">
+              <a className="text-dark" onClick={goToRegister}>
                 Don&apos;t have an account? Sign up
               </a>
             </div>

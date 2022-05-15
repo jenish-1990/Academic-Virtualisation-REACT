@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Helmet from "react-helmet";
 import { showAlert, hideAlert } from "../static/js/alerts";
 import axios from "axios";
@@ -6,6 +6,13 @@ import { useHistory } from "react-router-dom";
 
 const Register = () => {
   const history = useHistory();
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (!userInfo) history.push("/register");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history]);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
