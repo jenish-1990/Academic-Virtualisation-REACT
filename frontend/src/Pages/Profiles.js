@@ -15,7 +15,7 @@ const Profiles = () => {
 
   const { user } = UserState();
   const [users, setUsers] = useState([]);
-
+  const [filteredUser, setFilteredUser] = useState([]);
   const [isActive, setActive] = useState(false);
 
   let userId;
@@ -30,6 +30,7 @@ const Profiles = () => {
     const { data } = await axios.get("/api/v1/users/getUserProfiles", config);
     // console.log(data.data.users);
     setUsers(data.data.users);
+    setFilteredUser(data.data.users);
     // console.log(users);
   };
 
@@ -87,6 +88,22 @@ const Profiles = () => {
     getAllUsers();
   }, []);
 
+  function searchChangeHandler(e) {
+
+    if(e.target.value ===""){
+          setFilteredUser(user)
+    }
+
+    let searchedUser = []
+    users.map((user)=>{
+        if(user.name.toLowerCase().includes(e.target.value.toLowerCase())){
+          searchedUser.push(user)
+        }
+    })
+
+    setFilteredUser(searchedUser)
+  }
+
   useLayoutEffect(() => {
     // COMMUNITY MODAL
     const communityArticle = document.querySelectorAll(".community-article");
@@ -142,8 +159,8 @@ const Profiles = () => {
   }, [users]);
 
   const displayUsers = () => {
-    if (users.length > 0) {
-      return users.reverse().map((user, index) => {
+    if (filteredUser.length > 0) {
+      return filteredUser.reverse().map((user, index) => {
         return (
           <div key={index}>
             <button role="button" className="community-child">
@@ -329,6 +346,7 @@ const Profiles = () => {
           </button>
           <form className="search-bar" autoComplete="off">
             <input
+              onChange={searchChangeHandler}
               className="search-bar-input"
               type="text"
               placeholder="Search"
