@@ -28,7 +28,7 @@ const Profiles = () => {
     };
 
     const { data } = await axios.get("/api/v1/users/getUserProfiles", config);
-    // console.log(data.data.users);
+    console.log(data.data.users);
     setUsers(data.data.users);
     setFilteredUser(data.data.users);
     // console.log(users);
@@ -104,6 +104,33 @@ const Profiles = () => {
     setFilteredUser(searchedUser)
   }
 
+  function applyFilterHandler(e) {
+    e.preventDefault()
+    let semVal = document.getElementById("sem").value
+    let courseVal = document.getElementById("course").value
+
+
+    let filteredUser = []
+
+    users.map(user=>{
+    let filterCondition = user.sem.toString() ===semVal && user.course === courseVal
+
+        if (semVal === "none" && courseVal ==="none"){
+          filterCondition = true
+        }else if(semVal === "none"  && courseVal !=="none"){
+          filterCondition = user.course === courseVal
+        }else if(semVal !== "none"  && courseVal ==="none"){
+          filterCondition = user.sem.toString() ===semVal
+        }
+
+      if(filterCondition){
+          filteredUser.push(user)
+        }
+    })
+
+    setFilteredUser(filteredUser)
+
+  }
   useLayoutEffect(() => {
     // COMMUNITY MODAL
     const communityArticle = document.querySelectorAll(".community-article");
@@ -362,7 +389,7 @@ const Profiles = () => {
         <section className="main community-main">
           <form className="filter-tags">
             <select name="sem" id="sem">
-              <option value="#">Sem</option>
+              <option value="none">Sem</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -374,7 +401,7 @@ const Profiles = () => {
             </select>
 
             <select name="course" id="course">
-              <option value="#">Course</option>
+              <option value="none">Course</option>
               <option value="Automobile Engineering">
                 Automobile Engineering
               </option>
@@ -395,7 +422,7 @@ const Profiles = () => {
               </option>
             </select>
 
-            <button className="apply-filter">Apply Filter</button>
+            <button onClick={applyFilterHandler} className="apply-filter">Apply Filter</button>
           </form>
           <div className="community-result">{displayUsers()}</div>
         </section>
