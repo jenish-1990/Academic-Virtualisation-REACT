@@ -4,22 +4,27 @@ A full-stack web application to virtualize academic collaboration, including sch
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🧑‍🏫 **Role-Based Access Control**  
-  Manage Admin, Faculty, and Student user roles with secure permissions.
+### Student Portal
 
-- 🗂️ **Assignment & Circular Management**  
-  Upload assignments and distribute academic circulars to students.
+- View class schedules and circulars
+- Submit assignments and view deadlines
+- Real-time group chat for academic discussions
+- Personalized dashboard for academic activities
 
-- 🗨️ **Real-Time Chat & Notes Sharing**  
-  Enable live collaboration between students and faculty.
+### Faculty Portal
 
-- 📊 **Personalized Dashboards**  
-  User-specific dashboards built using Pug and Chakra UI.
+- Upload assignments, notes, and announcements
+- Manage student lists and class schedules
+- Monitor assignment submissions and student engagement
+- Broadcast notifications to students and groups
 
-- 📅 **Class Scheduling System**  
-  Centralized management of class schedules and timetables.
+### Collaboration Tools
+
+- Real-time chat using REST APIs
+- Peer-to-peer notes sharing system
+- Intelligent user suggestions based on academic activity
 
 ---
 
