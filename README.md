@@ -1,81 +1,238 @@
 # 🎓 Academic Virtualization Platform
 
-A full-stack web application to virtualize academic collaboration, including scheduling, assignments, circulars, and peer-to-peer communication.
+## Project Overview
 
----
+**Academic Virtualization Platform** is a full-stack web application designed to streamline and virtualize academic collaboration in an educational institute. It provides an online environment for managing class schedules, assignments, announcements (circulars), and peer-to-peer communication among students and faculty. The goal is to centralize academic activities—such as assignment submissions, note sharing, and group discussions—into a single, easy-to-use platform. By offering dedicated portals for students and teachers, the platform fosters better connectivity and engagement in an academic community.
 
 ## Features
 
 ### Student Portal
 
-- View class schedules and circulars
-- Submit assignments and view deadlines
-- Real-time group chat for academic discussions
-- Personalized dashboard for academic activities
+- **Class Schedules & Circulars:** View upcoming class schedules and important circulars or announcements from faculty.  
+- **Assignments:** Submit assignments through the portal and track deadlines for each submission.  
+- **Real-Time Discussions:** Participate in real-time group chats for academic discussions with classmates.  
+- **Personal Dashboard:** Access a personalized dashboard showing your academic activities, upcoming deadlines, and recent announcements.
 
 ### Faculty Portal
 
-- Upload assignments, notes, and announcements
-- Manage student lists and class schedules
-- Monitor assignment submissions and student engagement
-- Broadcast notifications to students and groups
+- **Content Uploads:** Upload assignments, lecture notes, and announcements for students to access.  
+- **Class Management:** Manage class schedules and student lists.  
+- **Track Submissions:** Monitor student assignment submissions and engagement.  
+- **Broadcast Announcements:** Send circulars or notifications to all students or specific groups/classes.
 
 ### Collaboration Tools
 
-- Real-time chat using REST APIs
-- Peer-to-peer notes sharing system
-- Intelligent user suggestions based on academic activity
+- **Real-Time Chat:** Integrated real-time chat feature (via REST-style updates) for students and teachers to interact.  
+- **Notes Sharing:** Peer-to-peer note sharing and saving for future reference.  
+- **Social Learning Network:** Follow peers or faculty; get intelligent recommendations based on academic interest.
 
----
+## Technology Stack
 
-## 🛠️ Tech Stack
+- **Frontend:** React.js, Chakra UI, Pug (optional templating)
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB, Mongoose
+- **Authentication & Security:** JWT, bcrypt, Helmet, express-mongo-sanitize, xss-clean
+- **Email Service:** Nodemailer (SMTP, e.g., Gmail)
+- **Utilities:** Multer (file upload), Morgan (logging), dotenv (env config)
 
-| Category          | Technology                          |
-|------------------|-------------------------------------|
-| **Frontend**      | React.js, Chakra UI, Pug            |
-| **Backend**       | Node.js, Express.js                 |
-| **Database**      | MongoDB                             |
-| **Authentication**| JWT Auth, Role-Based Access         |
-| **Collaboration** | REST APIs, Real-Time Communication |
+## Project Structure
 
----
+```
+Academic-Virtualisation-REACT/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   ├── app.js
+│   └── server.js
+├── frontend/
+│   ├── src/
+│   │   ├── Pages/
+│   │   ├── static/
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── public/
+│   └── README.md
+├── assets/
+│   ├── html/
+│   ├── css/
+│   └── js/
+├── config.env
+├── package.json
+├── .gitignore
+└── README.md
+```
 
-## ⚙️ Installation Guide
+## Installation Instructions
 
-### 1️⃣ Clone the Repository
+### Prerequisites
+
+- Node.js v14+
+- npm
+- MongoDB (local or cloud)
+
+### Setup
 
 ```bash
-git clone https://github.com/YourUsername/Academic-Virtualisation-REACT.git
+git clone https://github.com/jenish-1990/Academic-Virtualisation-REACT.git
 cd Academic-Virtualisation-REACT
 ```
 
-### 2️⃣ Install Backend Dependencies
+#### Backend Setup
 
 ```bash
-cd server
+cd backend
 npm install
 ```
 
-### 3️⃣ Install Frontend Dependencies
+#### Frontend Setup
 
 ```bash
-cd ../client
+cd frontend
 npm install
 ```
 
-### 1️⃣ Start Backend
+#### Configure Environment
+
+Create a `config.env` file in the root directory:
+
+```env
+# MongoDB connection
+DATABASE=mongodb+srv://<USERNAME>:<PASSWORD>@cluster.mongodb.net/db
+DATABASE_PASSWORD=your_password
+
+# Server settings
+NODE_ENV=development
+PORT=3500
+
+# JWT Auth
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=90d
+JWT_COOKIE_EXPIRES_IN=90
+
+# Email
+EMAIL_USERNAME=your_email@gmail.com
+EMAIL_PASSWORD=your_email_password
+```
+
+### Run Servers
+
+Start backend:
 
 ```bash
-cd server
+cd backend
 npm run dev
 ```
 
-### 2️⃣ Start Frontend
+Start frontend:
 
 ```bash
-cd client
+cd frontend
 npm start
 ```
+
+Visit: [http://localhost:3000](http://localhost:3000)
+
+## Configuration
+
+See `.env` setup above. Required values include MongoDB URI, JWT secret, cookie expiration, and optional email service credentials.
+
+## Usage Guide
+
+- **Register/Login** via `/register` and `/login`
+- **Dashboard** shows personal updates
+- **Notes**: Upload, browse, save, delete
+- **Assignments**: Students submit, faculty track
+- **Instant Chat**: Real-time discussions
+- **Community**: Follow/unfollow users
+- **Profile**: View/edit your info, change password, delete account
+
+## API Reference
+
+### Auth
+
+- `POST /api/v1/users/signup`
+- `POST /api/v1/users/login`
+- `GET /api/v1/users/logout`
+
+### User Routes
+
+- `PATCH /api/v1/users/follow`
+- `PATCH /api/v1/users/unfollow`
+- `PATCH /api/v1/users/save`
+- `PATCH /api/v1/users/unsave`
+- `PATCH /api/v1/users/updateMyPassword`
+- `GET /api/v1/users/me`
+- `PATCH /api/v1/users/updateMe`
+- `DELETE /api/v1/users/deleteMe`
+
+### Notes
+
+- `GET /api/v1/notes`
+- `POST /api/v1/notes/uploadNote`
+- `DELETE /api/v1/notes/deleteNote`
+
+## Testing
+
+### Backend
+
+Manual testing via Postman. Automated tests not yet included.
+
+### Frontend
+
+```bash
+cd frontend
+npm test
+```
+
+## Deployment
+
+### Frontend
+
+```bash
+cd frontend
+npm run build
+```
+
+Deploy `build/` to Netlify/Vercel or serve statically via Express:
+
+```js
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
+```
+
+### Backend
+
+```bash
+cd backend
+npm run start:prod
+```
+
+Use PM2 or deploy to Heroku, AWS, etc.
+
+## Contribution Guidelines
+
+1. Fork repo
+2. Create feature branch
+3. Commit descriptive messages
+4. Run ESLint and format with Prettier
+5. Submit pull request
+
+### Linting
+
+```bash
+npm run lint
+npm run format
+```
+
+## License
+
+This project is licensed under the **Jenish Akhed**.
+
+# Working Images
 
 ### Login & Registration
 <img width="1512" height="949" alt="login" src="https://github.com/user-attachments/assets/63fb7d77-77ab-4d85-b5c8-bcc7f61fd496" />
